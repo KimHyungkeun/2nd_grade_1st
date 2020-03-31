@@ -1,0 +1,12 @@
+package project1;
+
+public class DoubleArraySeqTester {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		DoubleArraySeq numbers = new DoubleArraySeq(3);
+		numbers.start();
+		
+		}
+
+}

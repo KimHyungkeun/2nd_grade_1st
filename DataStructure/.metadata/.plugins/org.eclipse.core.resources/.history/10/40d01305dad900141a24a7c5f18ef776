@@ -1,0 +1,58 @@
+package project1;
+
+public class DoubleArraySeqTester {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		DoubleArraySeq numbers = new DoubleArraySeq();
+		  numbers.start();
+	        numbers.addAfter(3.5);
+	        numbers.addAfter(14.9);
+	        numbers.addAfter(45.3);
+	        numbers.addAfter(8.2);
+	        numbers.addAfter(11.11);
+	        numbers.addAfter(4.0);
+	        numbers.addAfter(23.6);
+	        numbers.addAfter(7.8);
+	         
+	        System.out.println("Your current value is" + numbers.getCurrent());
+	         
+	        numbers.start();
+	        System.out.println("Your current value is" + numbers.getCurrent() + "  You're back at the beginning.");
+	         
+	        System.out.println("Here are all the values in this sequence:");
+	         
+	            for (numbers.start(); numbers.isCurrent(); numbers.advance())
+	                System.out.println(numbers.getCurrent());
+	                 
+	        System.out.println("And now... another sequence.");
+	         
+	    DoubleArraySeq numbers2 = new DoubleArraySeq(5);
+	     
+	        numbers2.start();   
+	        numbers2.addAfter(75.9);    
+	        numbers2.addAfter(10.3);
+	        numbers2.addAfter(5.9);
+	        numbers2.addAfter(16.4);
+	        numbers2.addAfter(2.1);
+	         
+	            System.out.println("Here are all the values in this sequence:");
+	         
+	            for (numbers2.start(); numbers2.isCurrent(); numbers2.advance())
+	                System.out.println(numbers2.getCurrent());
+	                 
+	    System.out.println("Now I'm concatenating the two sequences I made.");
+	     
+	    DoubleArraySeq total = new DoubleArraySeq();
+	    total= DoubleArraySeq.concatenation(numbers, numbers2);
+	     
+	    System.out.println("Here's the result:");
+	    System.out.println(total);
+	     
+	    }
+	 
+	 
+     
+}
+
+

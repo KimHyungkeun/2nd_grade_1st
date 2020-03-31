@@ -1,0 +1,15 @@
+package project1;
+
+public class DoubleArraySeqTester {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		DoubleArraySeq numbers = new DoubleArraySeq();
+		numbers.addAfter(1);
+		numbers.addAfter(2);
+		numbers.start();
+		numbers.addAfter(3);
+		
+		}
+
+}

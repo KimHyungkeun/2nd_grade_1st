@@ -1,0 +1,202 @@
+package project1;
+
+public class DoubleArraySeq implements Cloneable
+{
+	private double[] data; //Store input data
+	private int manyItems; //how much data array is currently being used.
+	private int current; //current index
+	
+	//Initialize an empty sequence with an initial capacity of 10
+	public DoubleArraySeq()
+	{
+		final int INITIAL_CAPACITY = 10;
+        manyItems = 0;
+        data = new double[INITIAL_CAPACITY];
+	}
+	
+	//Initialize an empty sequence with a specified initial capacity
+	public DoubleArraySeq(int initialCapacity) 
+	{
+		if(initialCapacity <= 0)
+			throw new IllegalArgumentException("initialCapacity is negative : " + initialCapacity);
+		
+		else
+		data = new double[initialCapacity];
+	}
+	
+	//Adds a new element to this sequence after the current element
+	public void addAfter(double element) 
+	{
+		if(manyItems == data.length) 
+			ensureCapacity(manyItems * 2 + 1); //add new array(new array's size is same as data.length)
+		
+		if(!isCurrent()) //if it is not same with isCurrent
+			current = 0; //currentIndex is 0
+		else
+			current++;
+		
+		for(int i = current; i < manyItems; i++)
+			data[i+1] = data[i];
+		
+		data[current] = element;
+		manyItems++;
+	}
+	
+	//Adds a new element to this sequence before the current element
+	public void addBefore(double element) 
+	{
+		if(manyItems == data.length)
+			ensureCapacity(manyItems * 2 + 1); //add new array(new array's size is same as data.length)
+		
+		if(!isCurrent()) //if it is not same with isCurrent
+			current = 0; //currentIndex is 0
+		
+		for(int i = manyItems; i > current; i--) 
+			data[i] = data[i-1];
+		
+		data[current] = element;
+		manyItems++;
+	}
+	
+	//Place the contents of another sequence at the end of this sequence
+	public void addAll(DoubleArraySeq addend) 
+	{
+		if(addend == null)
+			throw new NullPointerException("addend Array is Null Point.");
+		this.ensureCapacity(manyItems + addend.manyItems);
+		
+		System.arraycopy(addend.data, 0, data, manyItems, addend.manyItems);
+		manyItems += addend.manyItems;
+	}
+	
+	//Clone an doubleArraySeq object
+	public DoubleArraySeq clone() 
+	{
+		DoubleArraySeq answer = null;
+		
+		try
+		{
+			answer = (DoubleArraySeq) super.clone();
+		}
+		catch(CloneNotSupportedException e)
+		{
+			throw new RuntimeException("This class does not implement Cloneable.");
+		}
+		
+		answer.data = data.clone();
+		return answer;
+	}
+	
+	//Create a new sequence that contains all the elements from one sequence followed by another
+	public static DoubleArraySeq concatenation(DoubleArraySeq s1,DoubleArraySeq s2) 
+	{
+		if(s1 == null || s2 == null)
+			throw new NullPointerException("s1(" + s1 +") or s2(" + s2 + ") is null pointer.");
+		
+		DoubleArraySeq newDoubleArraySeq = new DoubleArraySeq(s1.getCapacity() + s2.getCapacity());
+		System.arraycopy(s1.data, 0, newDoubleArraySeq.data, 0, s1.manyItems);
+		System.arraycopy(s2.data, 0, newDoubleArraySeq.data, s1.manyItems, s2.manyItems);
+		
+		newDoubleArraySeq.manyItems = s1.manyItems + s2.manyItems;
+		
+		newDoubleArraySeq.trimToSize();
+		
+		return newDoubleArraySeq;
+	}
+	
+	//Change the current capacity of this sequence
+	public void ensureCapacity(int minimumCapacity)
+	{
+int ensuredCapacity;
+		
+		if(data.length < minimumCapacity)
+			ensuredCapacity = minimumCapacity;
+		else 
+			ensuredCapacity = data.length;
+			
+		double[] Array = new double[ensuredCapacity];
+		System.arraycopy(data, 0, Array, 0, manyItems);
+		data = Array;		
+	}
+	
+	//Accessor method to determine the current capacity of this sequence
+	public int getCapacity() 
+	{
+		return data.length;
+	}
+	
+	//Accessor method to determine whether this sequence has a specified current element that can be retrieved with the getCurrent method
+	public boolean isCurrent()
+	{
+		if(manyItems < 0)
+		return true;
+		
+		else
+		return false;
+	}
+	
+	//Remove the current element from this sequence
+	public void removeCurrent()
+	{
+		if(manyItems - 1 < current)
+			throw new IllegalStateException("there is no current element.");
+		
+		for(int i = current;i < manyItems;++i)
+		{
+			try{
+				data[i] = data[i+1];
+			}
+			catch(ArrayIndexOutOfBoundsException e){
+				
+			}
+		}
+		data[manyItems-- - 1] = 0;
+	}
+	
+	//Accessor method to determine the number of elements in this sequence
+	public int size()
+	{
+		return this.manyItems;
+	}
+	
+	//Set the current element at the front of this sequence
+	public void start() 
+	{
+		if(data.length > 0)
+			current = 0;
+	}
+	
+	//Accessor method to determine the current element of this sequence.
+	public double getCurrent() 
+	{
+		 boolean isCurrent = isCurrent();  //This is line 318.
+	       
+	       if (true == isCurrent )
+	       {
+	           return data[current];
+	       }
+	       else
+	       { 
+	           throw new IllegalStateException("There is no current element.");
+	       }
+	}
+	
+	//Move forward so that the current element is now the next element in this sequence
+	public void advance() 
+	{
+		this.current += 1;
+	}
+	
+	//Reduce the current capacity of this sequence to its actual size
+	public void trimToSize() 
+	{
+		double[] trimmedArray;
+		
+		if(data.length != manyItems)
+		{
+			trimmedArray = new double[manyItems];
+			System.arraycopy(data, 0, trimmedArray, 0, manyItems);
+			data = trimmedArray;
+		}
+	}
+}

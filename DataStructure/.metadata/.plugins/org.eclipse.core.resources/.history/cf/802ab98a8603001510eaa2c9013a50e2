@@ -1,0 +1,38 @@
+
+public class IntBalancedSet implements Cloneable{
+	private static final int MINIMUM = 200;
+	private static final int MAXIMUM = 2 * MINIMUM;
+	int dataCount;
+	int[] data = new int[MAXIMUM + 1];
+	int childCount;
+	IntBalancedSet[] subset = new IntBalancedSet[MAXIMUM + 2];
+	
+	public IntBalancedSet() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void add(int element)
+	{
+		dataCount = 0;
+	    childCount = 0;
+		
+	}
+	
+	public IntBalancedSet clone()
+	{
+		
+	}
+	
+	public boolean contains(int target)
+	{
+		
+	}
+	
+	public boolean remove(int target)
+	{
+		
+	}
+	
+	
+
+}

@@ -1,0 +1,16 @@
+package Sort;
+
+public class SortTester {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] data = { 100,180,170,190,130,140,110,120,150,160,80,10,50,70,60,90,20,30,40,0 };
+		Sort sort = new Sort();
+		
+		sort.selectionsort(data,0,data.length);
+		sort.insertionsort(data,0,data.length);
+		sort.mergesort(data,0,data.length);
+		sort.quicksort(data,0,data.length);
+	}
+
+}
