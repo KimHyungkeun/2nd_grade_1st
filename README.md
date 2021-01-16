@@ -1,4 +1,4 @@
-# 2nd_grade_1st
+# 2학년 1학기 과정
 - 전공과목
 
 [1.DataStructure](https://github.com/KimHyungkeun/2nd_grade_1st/tree/master/DataStructure) : 자료구조 과목
